@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using Bulksign.Extensibility;
 
 namespace CustomSmsProvider
 {
 	public class MyCustomSmsProvider : ISMSProvider
 	{
+		public IJsonSerializer   JsonSerializer { get; set; }
 		public event LogDelegate Log;
 
 		public SMSResult Send(string text, string phoneNumber)
@@ -31,6 +33,8 @@ namespace CustomSmsProvider
 			}
 			catch (Exception ex)
 			{
+				Log(LogLevel.Error, ex);
+
 				//failed
 				return new SMSResult()
 				{
@@ -38,9 +42,7 @@ namespace CustomSmsProvider
 					ErrorMessage = ex.Message,
 					IsSuccess = false
 				};
-
 			}
-
 		}
 
 		public Dictionary<string, string> Settings
@@ -50,5 +52,12 @@ namespace CustomSmsProvider
 		}
 
 		public string ProviderName => "CustomSmsProvider";
+
+		public HttpClient HttpClient
+		{
+			get;
+			set;
+		}
+
 	}
 }
