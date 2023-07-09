@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using Bulksign.Extensibility;
+﻿using Bulksign.Extensibility;
 
 namespace CustomSmsProvider
 {
@@ -25,7 +22,8 @@ namespace CustomSmsProvider
 				//successful result
 				return new SMSResult()
 				{
-					Identifier = Guid.NewGuid().ToString(),
+					//set the identifier here which is received from the SMS gateway.
+					SmsIdentifier = Guid.NewGuid().ToString(),
 					ErrorMessage = string.Empty,
 					IsSuccess = true
 				};
@@ -38,7 +36,7 @@ namespace CustomSmsProvider
 				//failed
 				return new SMSResult()
 				{
-					Identifier = string.Empty,
+					SmsIdentifier = string.Empty,
 					ErrorMessage = ex.Message,
 					IsSuccess = false
 				};
