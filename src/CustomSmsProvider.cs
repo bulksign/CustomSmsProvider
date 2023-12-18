@@ -4,19 +4,16 @@ namespace CustomSmsProvider
 {
 	public class MyCustomSmsProvider : ISMSProvider
 	{
-		public IJsonSerializer   JsonSerializer { get; set; }
-		public event LogDelegate Log;
-
+		public string ProviderName => "CustomSmsProvider";
+		
 		public SMSResult Send(string text, string phoneNumber)
 		{
-
 			try
 			{
 
 				Log(LogLevel.Info, null, $"Started sending SMS using provider {ProviderName} ");
 
 				//add code to send sms using the provider/gateway you want 
-
 
 
 				//successful result
@@ -49,13 +46,16 @@ namespace CustomSmsProvider
 			set;
 		}
 
-		public string ProviderName => "CustomSmsProvider";
+	
 
 		public HttpClient HttpClient
 		{
 			get;
 			set;
 		}
+		
+		public IJsonSerializer   JsonSerializer { get; set; }
+		public event LogDelegate Log;
 
 	}
 }
